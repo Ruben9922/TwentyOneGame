@@ -24,7 +24,7 @@ class Rank(Enum):
     King = 13
 
     def __str__(self):
-        return self._name_;
+        return self._name_
 
 
 class Card:
