@@ -1,4 +1,5 @@
 from enum import Enum
+from random import randrange
 
 
 class Suit(Enum):
@@ -35,4 +36,36 @@ class Card:
     def __str__(self):
         return "{} of {}".format(str(self.rank), str(self.suit))
 
-print(str(Card(Suit.Clubs, Rank.Ace)))
+
+class Deck:
+    def __init__(self):
+        self.cards = []
+        for suit in Suit:
+            for rank in Rank:
+                self.cards.append(Card(suit, rank))
+
+    def shuffle(self):
+        cards_temp = []
+        for i in range(len(self.cards)):
+            card_index = randrange(len(self.cards))
+            cards_temp.append(self.cards[card_index])
+            self.cards.pop(card_index)
+        self.cards = cards_temp
+
+    def __str__(self):
+        string_array = []
+        prepend_newline = False
+        for card in self.cards:
+            if prepend_newline:
+                string_array.append("\n")
+            else:
+                prepend_newline = True
+
+            string_array.append(str(card))
+
+        string = "".join(string_array)
+        return string
+
+d = Deck()
+d.shuffle()
+print(str(d))
