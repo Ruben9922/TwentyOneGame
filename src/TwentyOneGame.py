@@ -97,23 +97,34 @@ players = []
 player_count = input_int("Number of players: ")
 for i in range(player_count):
     valid = False
+
     while not valid:
         # Input name for new player
         new_player_name = input("Player {} name: ".format(i + 1))
         new_player_name = capitalise_words(new_player_name)
 
-        # Check if name already taken (ignoring case)
-        valid = True
-        for player in players:
-            if new_player_name.lower() == player.name.lower():
-                valid = False
-                break
+        # Check name is at least 1 character long
+        length_valid = len(new_player_name) >= 1
+        unique = True
 
-        if valid:
-            players.append(Player(new_player_name))
-            print("Player \"{}\" created".format(new_player_name))
+        if length_valid:
+            # Check if name already taken (ignoring case)
+            for player in players:
+                if new_player_name.lower() == player.name.lower():
+                    unique = False
+                    break
+
+            # Valid if long enough and not already taken
+            valid = length_valid and unique
+
+            # Create player if valid
+            if unique:
+                players.append(Player(new_player_name))
+                print("Player \"{}\" created".format(new_player_name))
+            else:
+                print("Player name already taken!")
         else:
-            print("Player name already taken!")
+            print("Player name must contain at least one character!")
 
         print()
 
