@@ -90,6 +90,11 @@ def capitalise_words(string):
         return "".join(string_list)
     return ""
 
+def give_cards(cards, player, card_count = 1):
+    for i in range(card_count):
+        card = cards.pop()
+        player.cards.append(card)
+
 # Initialise list of players
 players = []
 
@@ -132,4 +137,7 @@ for i in range(player_count):
 # Create deck and shuffle
 d = Deck()
 d.shuffle()
-# print(str(d))
+
+# Initially give each player some cards
+for player in players:
+    give_cards(d.cards, player, 2)
