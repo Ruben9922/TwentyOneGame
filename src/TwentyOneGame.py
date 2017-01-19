@@ -73,14 +73,46 @@ class Player:
         self.name = name
         self.cards = []
 
+
+def capitalise_words(string):
+    if len(string) >= 1:
+        # Create list from string
+        string_list = list(string)
+
+        # Convert first character to uppercase
+        string_list[0] = string_list[0].upper()
+
+        # Convert all characters immediately following a space to uppercase
+        for i in range(1, len(string_list)):
+            if string_list[i - 1] == " ":
+                string_list[i] = string_list[i].upper()
+        return "".join(string_list)
+    return ""
+
 # Get player names
 player_count = input_int("Number of players: ")
 players = []
 for i in range(player_count):
-    new_player_name = input("Player {} name: ".format(i + 1))
-    players.append(Player(new_player_name))
-    print("Player \"{}\" created".format(new_player_name))
-    print()
+    valid = False
+    while not valid:
+        # Input name for new player
+        new_player_name = input("Player {} name: ".format(i + 1))
+        new_player_name = capitalise_words(new_player_name)
+
+        # Check if name already taken (ignoring case)
+        valid = True
+        for player in players:
+            if new_player_name.lower() == player.name.lower():
+                valid = False
+                break
+
+        if valid:
+            players.append(Player(new_player_name))
+            print("Player \"{}\" created".format(new_player_name))
+        else:
+            print("Player name already taken!")
+
+        print()
 
 # Create deck and shuffle
 d = Deck()
