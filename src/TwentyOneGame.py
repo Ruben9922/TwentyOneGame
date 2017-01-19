@@ -74,6 +74,7 @@ class Player:
         self.cards = []
 
 
+# Capitalise each "word" in given string
 def capitalise_words(string):
     if len(string) >= 1:
         # Create list from string
@@ -89,9 +90,11 @@ def capitalise_words(string):
         return "".join(string_list)
     return ""
 
+# Initialise list of players
+players = []
+
 # Get player names
 player_count = input_int("Number of players: ")
-players = []
 for i in range(player_count):
     valid = False
     while not valid:
