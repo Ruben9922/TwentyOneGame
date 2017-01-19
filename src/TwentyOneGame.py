@@ -102,6 +102,7 @@ for i in range(player_count):
         # Input name for new player
         new_player_name = input("Player {} name: ".format(i + 1))
         new_player_name = capitalise_words(new_player_name)
+        new_player_name = new_player_name.strip()
 
         # Check name is at least 1 character long
         length_valid = len(new_player_name) >= 1
@@ -124,7 +125,7 @@ for i in range(player_count):
             else:
                 print("Player name already taken!")
         else:
-            print("Player name must contain at least one character!")
+            print("Player name must contain at least one non-whitespace character!")
 
         print()
 
