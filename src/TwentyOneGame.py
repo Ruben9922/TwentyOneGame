@@ -1,5 +1,6 @@
 from enum import Enum
 from random import randrange
+from ruben9922.consoleutilities.inpututilities import input_int
 
 
 class Suit(Enum):
@@ -66,6 +67,22 @@ class Deck:
         string = "".join(string_array)
         return string
 
+
+class Player:
+    def __init__(self, name):
+        self.name = name
+        self.cards = []
+
+# Get player names
+player_count = input_int("Number of players: ")
+players = []
+for i in range(player_count):
+    new_player_name = input("Player {} name: ".format(i + 1))
+    players.append(Player(new_player_name))
+    print("Player \"{}\" created".format(new_player_name))
+    print()
+
+# Create deck and shuffle
 d = Deck()
 d.shuffle()
-print(str(d))
+# print(str(d))
