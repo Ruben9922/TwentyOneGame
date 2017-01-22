@@ -54,24 +54,14 @@ class Deck:
         self.cards = cards_temp
 
     def __str__(self):
-        string_array = []
-        prepend_newline = False
-        for card in self.cards:
-            if prepend_newline:
-                string_array.append("\n")
-            else:
-                prepend_newline = True
-
-            string_array.append(str(card))
-
-        string = "".join(string_array)
-        return string
+        return cards_to_string(self.cards)  # Currently just returns string representing the list of cards
 
 
 class Player:
     def __init__(self, name):
         self.name = name
         self.cards = []
+        self.out = False
 
 
 # Capitalise each "word" in given string
@@ -95,6 +85,29 @@ def give_cards(cards, player, card_count = 1):
     for i in range(card_count):
         card = cards.pop()
         player.cards.append(card)
+
+
+def cards_to_string(cards):
+    string_array = []
+    prepend_newline = False
+    for card in cards:
+        if prepend_newline:
+            string_array.append("\n")
+        else:
+            prepend_newline = True
+
+        string_array.append(str(card))
+
+    string = "".join(string_array)
+    return string
+
+
+def is_any_player_in(players):
+    for player in players:
+        if not player.out:
+            return True
+    return False
+
 
 # Initialise list of players
 players = []
@@ -142,3 +155,11 @@ deck.shuffle()
 # Initially give each player some cards
 for player in players:
     give_cards(deck.cards, player, 2)
+
+while is_any_player_in(players):
+    for player in players:
+        if not player.out:
+            print("---- {}'S TURN ----".format(player.name.upper()))
+            print()
+            print("Your cards:")
+            print(cards_to_string(player.cards))
